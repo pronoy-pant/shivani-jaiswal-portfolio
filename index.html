@@ -2,31 +2,73 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Shivani Jaiswal — Portfolio Concepts</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Shivani Jaiswal — Homepage Designs</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Mono&display=swap" rel="stylesheet">
 <style>
-  body { font-family: -apple-system, Helvetica, Arial, sans-serif; max-width: 640px; margin: 4rem auto; padding: 0 1.5rem; color: #1a1a1a; }
-  h1 { font-size: 1.5rem; margin-bottom: 2rem; }
-  ul { list-style: none; padding: 0; }
-  li { margin: 0.75rem 0; }
-  a { display: block; padding: 0.9rem 1.1rem; border: 1px solid #ddd; border-radius: 8px; text-decoration: none; color: #1a1a1a; }
-  a:hover { background: #f5f5f5; }
+  body { margin:0; background:#FFFDFC; color:#2B2523; font-family:"Cormorant Garamond",Georgia,serif;
+         display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; padding:6vh 6vw; gap:3rem; }
+  h1 { font-size:clamp(2rem,5vw,3.4rem); font-weight:300; margin:0; text-align:center; }
+  p.sub { font-family:"DM Mono",monospace; font-size:.72rem; letter-spacing:.22em; text-transform:uppercase; margin:.6rem 0 0; opacity:.6; text-align:center; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1.5rem; width:100%; max-width:1000px; }
+  a.card { display:block; padding:2.4rem 1.8rem; border:1px solid #E7DAD8; border-radius:2px; text-decoration:none; color:inherit;
+           background:#fff; transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease; }
+  a.card:hover { transform:translateY(-4px); box-shadow:0 14px 40px rgba(43,37,35,.08); border-color:#C4707F; }
+  .num { font-family:"DM Mono",monospace; font-size:.7rem; letter-spacing:.2em; color:#8E2F45; }
+  .name { font-size:1.7rem; font-weight:300; margin:.8rem 0 .4rem; }
+  .desc { font-family:"DM Mono",monospace; font-size:.68rem; letter-spacing:.08em; line-height:1.7; opacity:.55; }
 </style>
 </head>
 <body>
-<h1>Shivani Jaiswal — Homepage Concepts</h1>
-<ul>
-<li><a href="Homepage.dc.html">Homepage (default)</a></li>
-<li><a href="Homepage 1a Editorial Romance.dc.html">1a — Editorial Romance</a></li>
-<li><a href="Homepage 1c Contemporary Gallery.dc.html">1c — Contemporary Gallery</a></li>
-<li><a href="Homepage 2a Midnight Gallery.dc.html">2a — Midnight Gallery</a></li>
-<li><a href="Homepage 2b Marigold Bold.dc.html">2b — Marigold Bold</a></li>
-<li><a href="Homepage 2c Soft Bloom.dc.html">2c — Soft Bloom</a></li>
-<li><a href="Homepage 2d Midnight Reel.dc.html">2d — Midnight Reel</a></li>
-<li><a href="Homepage 2e Midnight Chapters.dc.html">2e — Midnight Chapters</a></li>
-<li><a href="Homepage 3a Vermilion Hours.dc.html">3a — Vermilion Hours</a></li>
-<li><a href="Homepage 3b The Wedding Museum.dc.html">3b — The Wedding Museum</a></li>
-<li><a href="Homepage 3c Wet Paint.dc.html">3c — Wet Paint</a></li>
-</ul>
+  <header>
+    <h1>Shivani Jaiswal — Fine Artist</h1>
+    <p class="sub">Homepage directions</p>
+  </header>
+  <nav class="grid">
+    <a class="card" href="./Homepage.dc.html">
+      <span class="num">01</span>
+      <div class="name">Original</div>
+    </a>
+    <a class="card" href="./Homepage%201a%20Editorial%20Romance.dc.html">
+      <span class="num">02</span>
+      <div class="name">Editorial Romance</div>
+    </a>
+    <a class="card" href="./Homepage%201c%20Contemporary%20Gallery.dc.html">
+      <span class="num">03</span>
+      <div class="name">Contemporary Gallery</div>
+    </a>
+    <a class="card" href="./Homepage%202a%20Midnight%20Gallery.dc.html">
+      <span class="num">04</span>
+      <div class="name">Midnight Gallery</div>
+    </a>
+    <a class="card" href="./Homepage%202b%20Marigold%20Bold.dc.html">
+      <span class="num">05</span>
+      <div class="name">Marigold Bold</div>
+    </a>
+    <a class="card" href="./Homepage%202c%20Soft%20Bloom.dc.html">
+      <span class="num">06</span>
+      <div class="name">Soft Bloom</div>
+    </a>
+    <a class="card" href="./Homepage%202d%20Midnight%20Reel.dc.html">
+      <span class="num">07</span>
+      <div class="name">Midnight Reel</div>
+    </a>
+    <a class="card" href="./Homepage%202e%20Midnight%20Chapters.dc.html">
+      <span class="num">08</span>
+      <div class="name">Midnight Chapters</div>
+    </a>
+    <a class="card" href="./Homepage%203a%20Vermilion%20Hours.dc.html">
+      <span class="num">09</span>
+      <div class="name">Vermilion Hours</div>
+    </a>
+    <a class="card" href="./Homepage%203b%20The%20Wedding%20Museum.dc.html">
+      <span class="num">10</span>
+      <div class="name">The Wedding Museum</div>
+    </a>
+    <a class="card" href="./Homepage%203c%20Wet%20Paint.dc.html">
+      <span class="num">11</span>
+      <div class="name">Wet Paint</div>
+    </a>
+  </nav>
 </body>
 </html>
