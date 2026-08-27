@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&amp;family=Inter:wght@400;500&amp;family=DM+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#FFFCF1;color:#2E0206;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:#882221;text-decoration:none}
+  a:hover{color:#660B14}
+  [data-reveal]{opacity:1;transform:none;transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      [data-reveal]{animation:revealIn linear both;animation-timeline:view();animation-range:entry 0% entry 62%}
+    }
+  }
+  @keyframes revealIn{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+  .maskline{display:block;overflow:hidden}
+  .maskline > span{display:block;transform:translateY(105%);transition:transform 1s cubic-bezier(.16,1,.3,1)}
+  .is-in .maskline > span, .maskline.is-in > span{transform:none}
+  @keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
+  @keyframes goldsweep{0%{background-position:0% 0}100%{background-position:200% 0}}
+  @media (prefers-reduced-motion: reduce){
+    [data-reveal]{opacity:1!important;transform:none!important;animation:none!important}
+    .maskline > span{transform:none!important}
+    [data-breathe]{animation:none!important}
+  }
+@keyframes ringIn { from { opacity: 0; transform: scale(.86) translateZ(-260px); } to { opacity: 1; transform: none; } }
+  @keyframes curtainlift { to { transform: translateY(-100%); visibility: hidden; } }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+</helmet>
+
+<div style="background:#FFFCF1;overflow-x:clip">
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <filter id="roughen"><feTurbulence type="fractalNoise" baseFrequency="0.04 0.09" numOctaves="3" seed="7" result="n"></feTurbulence><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap></filter>
+  </svg>
+
+  <div style="position:fixed;inset:0;background:#FFFCF1;z-index:90;pointer-events:none;animation:curtainlift .9s cubic-bezier(.16,1,.3,1) .15s both"></div>
+
+  <div style="position:fixed;top:0;left:0;right:0;z-index:60">
+    <div style="background: #2E0206; color: #FFFCF1; font-family: 'DM Mono',monospace; font-size: 10.5px; letter-spacing: .26em; text-transform: uppercase; padding: 9px 28px; display: none; justify-content: space-between; gap: 24px; flex-wrap: wrap">
+      <span style="color:#C8A24A">● COMMISSIONS OPEN FOR 2026</span>
+      <span style="opacity:.75">hello@shivanijaiswal.art</span>
+      <span style="opacity:.75">BASED IN INDIA, TRAVELS FOR WEDDINGS</span>
+    </div>
+    <nav ref="{{ nav }}" style="display:flex;align-items:center;justify-content:space-between;padding:18px 28px;border-bottom:1px solid transparent;transition:background .24s ease,border-color .24s ease,backdrop-filter .24s ease">
+      <span style="font-family:'Playfair Display',serif;font-size:19px;letter-spacing:.01em">Shivani Jaiswal</span>
+      <div style="display:flex;align-items:center;gap:30px">
+        <span style="font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:#826664;display:flex;gap:26px">
+          <a href="#work" style="color:#826664">Work</a>
+          <a href="#paint" style="color:#826664">What I Paint</a>
+          <a href="#about" style="color:#826664">About</a>
+          <a href="#faq" style="color:#826664">FAQ</a>
+        </span>
+        <a href="#enquiry" style="background:#882221;color:#FFFCF1;border-radius:999px;padding:11px 22px;font-size:13px;font-weight:500;overflow:hidden;position:relative;display:block;height:38px;line-height:16px" style-hover="background:#660B14">
+          <span style="display:block">Enquire About a Painting</span>
+        </a>
+      </div>
+    </nav>
+  </div>
+
+  <section style="min-height:100vh;position:relative;display:flex;flex-direction:column;padding:104px 0 0;overflow:hidden">
+
+    <div ref="{{ heroFrame }}" style="position:relative;flex:1;min-height:0;display:flex;flex-direction:column;width:100%">
+      <div ref="{{ stage }}" style="position:relative;height:min(62vh,560px);flex:1 0 auto;perspective:2100px;perspective-origin:50% 44%;cursor:grab;touch-action:pan-y;user-select:none">
+        <div style="position:absolute;left:50%;top:50%;width:min(64%,900px);height:40px;transform:translate(-50%,min(30vh,270px));background:radial-gradient(ellipse at center,rgba(46,2,6,.18),rgba(46,2,6,0) 70%);pointer-events:none"></div>
+        <div ref="{{ ring }}" style="position:absolute;inset:0;transform-style:preserve-3d;will-change:transform;animation:ringIn 1.5s cubic-bezier(.16,1,.3,1) .35s both">
+          <sc-for list="{{ pieces }}" as="p" hint-placeholder-count="7">
+            <figure class="ring-card" style="position:absolute;left:50%;top:50%;margin:0;width:clamp(210px,19vw,330px);transform-style:preserve-3d;will-change:transform,opacity">
+              <div style="border:1px solid rgba(200,162,74,.55);padding:11px;background:#FFFCF1;box-shadow:0 34px 64px -34px rgba(46,2,6,.5)">
+                <div style="position:relative;background:#F2ECDC;aspect-ratio:4/5;overflow:hidden">
+                  <img data-src="{{ p.src }}" alt="{{ p.alt }}" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block;pointer-events:none"></div>
+              </div>
+            </figure>
+          </sc-for>
+        </div>
+        <div ref="{{ ringCap }}" style="position:absolute;left:50%;bottom:-26px;transform:translateX(-50%);font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:#826664;white-space:nowrap;transition:opacity .3s;pointer-events:none"></div>
+      </div>
+
+      <div data-reveal="" style="transition-delay:.5s;display:flex;flex-direction:column;align-items:center;text-align:center;gap:0;padding:52px 28px 40px">
+        <h1 ref="{{ heroTitle }}" style="font-family:'Playfair Display',serif;font-weight:400;font-size:clamp(2.6rem,5.2vw,4.4rem);line-height:1.02;letter-spacing:-0.015em;margin:0 0 14px">
+          <span class="maskline"><span>Art that feels</span></span>
+          <span class="maskline"><span style="transition-delay:.12s;font-style:italic">personal</span></span>
+        </h1>
+        <p style="font-size:17px;line-height:1.7;color:#5a3f3f;margin:0 0 24px;max-width:46ch;text-wrap:pretty">Paintings created around people, places, celebrations, and stories that matter to you.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
+          <a href="#work" style="background:#882221;color:#FFFCF1;border-radius:999px;padding:13px 24px;font-size:13.5px;font-weight:500" style-hover="background:#660B14">Explore My Work</a>
+          <a href="#enquiry" style="border:1px solid #826664;color:#2E0206;border-radius:999px;padding:13px 24px;font-size:13.5px;font-weight:500" style-hover="border-color:#882221;color:#882221">Enquire About a Painting</a>
+        </div>
+      </div>
+
+      <div data-reveal="" style="transition-delay:.7s;text-align:center;padding:0 28px 28px;font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:#826664"><span style="color:#C8A24A">●</span> BFA &amp; MFA IN FINE ARTS · COMMISSIONS OPEN FOR 2026 · TRAVELS FOR WEDDINGS</div>
+    </div>
+  </section>
+
+  <section style="padding:120px 0 130px">
+    <div ref="{{ room1 }}" style="background:#2E0206;color:#FFFCF1;padding:clamp(70px,10vw,140px) 28px;clip-path:inset(0 20% 0 20% round 24px)">
+      <div style="max-width:960px;margin:0 auto">
+        <div data-reveal="" style="font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:#C8A24A;margin-bottom:34px">● MADE TO MEAN SOMETHING</div>
+        <p ref="{{ scrubText }}" style="font-family:'Playfair Display',serif;font-style:italic;font-weight:400;font-size:clamp(1.6rem,3.1vw,2.7rem);line-height:1.34;letter-spacing:-0.01em;margin:0;text-wrap:pretty">I have always believed that a painting should feel personal. Sometimes it starts with a wedding. Other times, it could be a photograph of someone you love, your pet, a special place, or simply an idea you have had for some time.. Whatever the idea is, I create every painting with the person and story behind it in mind.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="work" style="padding:0 0 130px">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:30px;flex-wrap:wrap;padding:0 clamp(28px,6vw,90px);margin-bottom:48px">
+      <div data-reveal="">
+        <div style="font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:#826664;margin-bottom:16px"><span style="color:#C8A24A">●</span> THE COLLECTION · SELECTED WORKS</div>
+        <h2 style="font-family:'Playfair Display',serif;font-weight:400;font-size:clamp(2rem,4.2vw,3.4rem);line-height:1.05;letter-spacing:-0.015em;margin:0">A Few Pieces From My World</h2>
+        <p style="font-size:16.5px;line-height:1.7;color:#5a3f3f;margin:16px 0 0;max-width:52ch">Live weddings. Portraits. Pets. Spiritual art. Abstract work. Personal commissions. Each one begins differently.</p>
+      </div>
+      <a data-reveal="" href="#paint" style="font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;border-bottom:1px solid #882221;padding-bottom:6px">View the Gallery →</a>
+    </div>
+
+    <div ref="{{ rack }}" style="position:relative;height:calc(var(--rackn,7) * 78vh + 40vh)">
+      <div style="position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;perspective:1600px">
+        <div style="position:absolute;left:50%;top:50%;width:min(70%,860px);height:40px;transform:translate(-50%,min(31vh,300px));background:radial-gradient(ellipse at center,rgba(46,2,6,.16),rgba(46,2,6,0) 70%);pointer-events:none"></div>
+        <div ref="{{ rackInner }}" style="position:relative;width:min(88vw,1180px);height:min(70vh,620px);transform-style:preserve-3d">
+          <sc-for list="{{ pieces }}" as="p" hint-placeholder-count="7">
+            <figure class="rack-card" style="position:absolute;left:50%;top:50%;margin:0;width:clamp(230px,27vw,400px);opacity:.55;transform:translate(-50%,-50%);transform-style:preserve-3d;will-change:transform,opacity">
+              <div style="border:1px solid rgba(200,162,74,.55);padding:13px;background:#FFFCF1;box-shadow:0 44px 78px -40px rgba(46,2,6,.55)">
+                <div style="position:relative;background:#F2ECDC;aspect-ratio:4/5;overflow:hidden">
+                  <img data-src="{{ p.src }}" alt="{{ p.alt }}" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block;pointer-events:none">
+                </div>
+              </div>
+              <figcaption class="rack-cap" style="font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:#826664;margin-top:14px;line-height:1.8;text-align:center;transition:opacity .35s ease"><span style="color:#C8A24A">●</span> {{ p.label }}</figcaption>
+            </figure>
+          </sc-for>
+        </div>
+        <div ref="{{ rackCount }}" style="position:absolute;right:clamp(28px,6vw,90px);top:50%;transform:translateY(-50%);font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.26em;color:#826664;writing-mode:vertical-rl"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="paint" style="padding:0 clamp(28px,6vw,90px) 130px">
+    <div data-reveal="" style="margin-bottom:54px">
+      <div style="font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:#826664;margin-bottom:16px"><span style="color:#C8A24A">●</span> SIX ROOMS · WHAT I PAINT</div>
+      <h2 style="font-family:'Playfair Display',serif;font-weight:400;font-size:clamp(2rem,4.2vw,3.4rem);line-height:1.05;letter-spacing:-0.015em;margin:0">What I Paint</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:44px 34px">
+      <sc-for list="{{ collections }}" as="c" hint-placeholder-count="6">
+        <a href="#enquiry" data-reveal="" style="display:block;color:inherit;padding:14px;border-radius:2px;transition:transform .3s ease,box-shadow .3s ease" style-hover="transform:translateY(-6px);box-shadow:0 20px 50px rgba(46,2,6,.10)">
+          <div style="border:1px solid rgba(200,162,74,.55);padding:14px;background:#FFFCF1">
+            <div style="overflow:hidden;aspect-ratio:4/3;background:#F6F0E1;display:flex;align-items:center;justify-content:center">
+              <sc-if value="{{ c.src }}" hint-placeholder-val="{{ true }}">
+                <img src="{{ c.src }}" alt="{{ c.title }}" loading="lazy" decoding="async" width="900" height="675" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.2,.8,.2,1)" style-hover="transform:scale(1.06)">
+              </sc-if>
+              <sc-if value="{{ c.empty }}">
+                <span style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:#a08d80">● IMAGE TO BE SUPPLIED</span>
+              </sc-if>
+            </div>
+          </div>
+          <div style="font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:#826664;margin:18px 0 10px"><span style="color:#C8A24A">●</span> {{ c.label }}</div>
+          <h3 style="font-family:'Playfair Display',serif;font-weight:400;font-size:1.6rem;line-height:1.15;margin:0 0 10px">{{ c.title }}</h3>
+          <p style="font-size:15.5px;line-height:1.7;color:#5a3f3f;margin:0 0 14px;text-wrap:pretty">{{ c.body }}</p>
+          <span style="font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:#882221;display:inline-block;transition:transform .3s ease" style-hover="transform:translateX(6px)">{{ c.cta }} →</span>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+
+  <section ref="{{ liveRoom }}" style="position:relative;background:#2E0206;color:#FFFCF1;overflow:hidden;padding:clamp(90px,12vw,150px) clamp(28px,6vw,90px)">
+    <img ref="{{ liveImg }}" src="assets/shivani-painting-mandap-live.png" alt="" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5">
+    <div style="position:relative;max-width:1100px;margin:0 auto">
+      <div data-reveal="" style="font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:#C8A24A;margin-bottom:24px">● LIVE PAINTING · AT THE VENUE · ACRYLIC</div>
+      <h2 data-reveal="" style="font-family:'Playfair Display',serif;font-weight:400;font-size:clamp(2.1rem,4.6vw,3.8rem);line-height:1.05;letter-spacing:-0.015em;margin:0 0 22px;max-width:22ch">Live Painting, <em>while the moment is still happening</em></h2>
+      <p data-reveal="" style="font-size:17px;line-height:1.7;max-width:62ch;color:rgba(255,252,241,.8);margin:0 0 64px;text-wrap:pretty">There is something very different about watching a blank canvas slowly become part of a celebration. For live weddings, I arrive before the main moment, set up at the venue, and begin building the scene. As the celebration unfolds, the people, colours, and details are added to the canvas. By the end of the event, the painting is complete and ready for its reveal.</p>
+
+      <div style="font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:#C8A24A;margin-bottom:30px">● FROM AN IDEA TO A PAINTING</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:rgba(200,162,74,.28)">
+        <sc-for list="{{ steps }}" as="s" hint-placeholder-count="4">
+          <div data-reveal="" style="background:#2E0206;padding:30px 26px 34px">
+            <div style="font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.26em;color:#C8A24A;margin-bottom:16px">{{ s.n }}</div>
+            <h3 style="font-family:'Playfair Display',serif;font-weight:400;font-size:1.3rem;line-height:1.2;margin:0 0 12px">{{ s.title }}</h3>
+            <p style="font-size:15px;line-height:1.7;color:rgba(255,252,241,.72);margin:0;text-wrap:pretty">{{ s.body }}</p>
+          </div>
+        </sc-for>
+      </div>
+      <div data-reveal="" style="margin-top:44px"><a href="#enquiry" style="color:#FFFCF1;font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;border-bottom:1px solid #C8A24A;padding-bottom:6px">See How Live Wedding Painting Works →</a></div>
+    </div>
+  </section>
+
+  <section id="about" style="padding:clamp(90px,12vw,150px) clamp(28px,6vw,90px);display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(40px,6vw,90px);align-items:start">
+    <div data-reveal="" style="position:sticky;top:120px">
+      <div style="border:1px solid rgba(200,162,74,.55);padding:14px;background:#FFFCF1">
+        <img src="assets/shivani-with-painting.png" alt="Shivani Jaiswal with a finished painting" loading="lazy" decoding="async" width="900" height="1100" style="width:100%;aspect-ratio:4/5;object-fit:cover;display:block">
+      </div>
+      <div style="font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:#826664;margin-top:14px"><span style="color:#C8A24A">●</span> THE ARTIST · IN THE STUDIO</div>
+    </div>
+    <div>
+      <h2 data-reveal="" style="font-family:'Playfair Display',serif;font-weight:400;font-size:clamp(2rem,4.2vw,3.4rem);line-height:1.05;letter-spacing:-0.015em;margin:0 0 26px">Hello, I’m Shivani</h2>
+      <div data-reveal="" style="font-size:17px;line-height:1.75;color:#5a3f3f;display:grid;gap:16px;max-width:60ch;text-wrap:pretty">
+        <p style="margin:0">I have loved drawing and painting for as long as I can remember.</p>
+        <p style="margin:0">I hold a BFA and MFA in Fine Arts and have been working as an artist for more than <span ref="{{ counter }}" style="font-family:'Playfair Display',serif;font-size:1.15em;color:#2E0206">10</span> years. I am also currently undertaking advanced academic art training through an Atelier programme.</p>
+        <p style="margin:0">Over the years, I have worked on everything from studio paintings and portraits to pet art, spiritual pieces, abstract work, and live weddings.</p>
+        <p style="margin:0">The subjects change, but what I look for stays the same, something that makes the painting feel like it belongs to the person it was created for.</p>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;margin:34px 0 40px">
+        <sc-for list="{{ chips }}" as="chip" hint-placeholder-count="4">
+          <span data-reveal="" style="border:1px solid #826664;border-radius:999px;padding:9px 18px;font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:#5a3f3f">{{ chip }}</span>
+        </sc-for>
+      </div>
+      <a data-reveal="" href="#enquiry" style="border-bottom:1px solid #882221;padding-bottom:6px;font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase">More About Shivani →</a>
+
+      <div style="margin-top:76px;display:grid;gap:1px;background:rgba(130,102,100,.28)">
+        <sc-for list="{{ pillars }}" as="pl" hint-placeholder-count="4">
+          <div data-reveal="" style="background:#FFFCF1;padding:26px 4px 26px 0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;align-items:start">
+            <h4 style="font-family:'Playfair Display',serif;font-weight:400;font-size:1.15rem;margin:0">{{ pl.title }}</h4>
+            <p style="font-size:15px;line-height:1.7;color:#5a3f3f;margin:0;text-wrap:pretty">{{ pl.body }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" style="padding:0 clamp(28px,6vw,90px) 130px;max-width:1000px;margin:0 auto;width:100%">
+    <div data-reveal="" style="margin-bottom:44px">
+      <div style="font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:#826664;margin-bottom:16px"><span style="color:#C8A24A">●</span> VISITOR INFORMATION</div>
+      <h2 style="font-family:'Playfair Display',serif;font-weight:400;font-size:clamp(2rem,4.2vw,3.4rem);line-height:1.05;letter-spacing:-0.015em;margin:0">A Few Common Questions</h2>
+    </div>
+    <div style="border-top:1px solid rgba(130,102,100,.35)">
+      <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="6">
+        <div data-reveal="" style="border-bottom:1px solid rgba(130,102,100,.35)">
+          <button onClick="{{ f.toggle }}" style="width:100%;background:none;border:0;padding:26px 0;display:flex;align-items:center;justify-content:space-between;gap:24px;cursor:pointer;text-align:left;font-family:'Playfair Display',serif;font-weight:400;font-size:clamp(1.05rem,1.7vw,1.35rem);color:#2E0206">
+            <span>{{ f.q }}</span>
+            <span style="font-family:'Inter',sans-serif;font-size:20px;color:#882221;transition:transform .32s cubic-bezier(.16,1,.3,1);transform:{{ f.rot }};flex:0 0 auto">+</span>
+          </button>
+          <div style="overflow:hidden;transition:height .32s cubic-bezier(.16,1,.3,1),opacity .32s ease;height:{{ f.h }};opacity:{{ f.o }}">
+            <p style="font-size:16px;line-height:1.75;color:#5a3f3f;margin:0 0 26px;max-width:70ch;text-wrap:pretty">{{ f.a }}</p>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <div data-reveal="" style="margin-top:34px"><a href="#enquiry" style="font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;border-bottom:1px solid #882221;padding-bottom:6px">View All FAQs →</a></div>
+  </section>
+
+  <section id="enquiry" style="padding:0 0 0">
+    <div ref="{{ room2 }}" style="background:#2E0206;color:#FFFCF1;padding:clamp(80px,11vw,150px) 28px;text-align:center;clip-path:inset(0 18% 0 18% round 24px)">
+      <div style="max-width:760px;margin:0 auto">
+        <div ref="{{ rule }}" style="height:1px;background:rgba(200,162,74,.7);transform:scaleX(0);transform-origin:left;transition:transform .7s cubic-bezier(.16,1,.3,1);margin-bottom:44px"></div>
+        <h2 data-reveal="" style="font-family:'Playfair Display',serif;font-style:italic;font-weight:400;font-size:clamp(2.2rem,5vw,4rem);line-height:1.06;letter-spacing:-0.015em;margin:0 0 22px">Have Something in Mind?</h2>
+        <p data-reveal="" style="font-size:17px;line-height:1.75;color:rgba(255,252,241,.78);margin:0 auto 34px;max-width:52ch;text-wrap:pretty">It does not need to be fully figured out before you get in touch. Tell me what you would like painted and why it matters to you. We can take it from there.</p>
+        <div data-reveal="" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+          <a href="mailto:hello@shivanijaiswal.art" style="background:#882221;color:#FFFCF1;border-radius:999px;padding:14px 26px;font-size:13.5px;font-weight:500" style-hover="background:#660B14">Start an Enquiry</a>
+          <a href="#enquiry" style="border:1px solid rgba(200,162,74,.6);color:#FFFCF1;border-radius:999px;padding:14px 26px;font-size:13.5px;font-weight:500" style-hover="border-color:#C8A24A">WhatsApp Shivani</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background:#2E0206;color:#FFFCF1;padding:0">
+    <div style="height:1px;background:linear-gradient(90deg,rgba(200,162,74,0),rgba(200,162,74,.9),rgba(200,162,74,0));background-size:200% 100%;animation:goldsweep 8s linear infinite"></div>
+    <div style="padding:clamp(56px,7vw,92px) clamp(28px,6vw,90px);display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:44px">
+      <div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.9rem;margin-bottom:14px">Artist Shivani Jaiswal</div>
+        <p style="font-size:15px;line-height:1.7;color:rgba(255,252,241,.7);margin:0;max-width:40ch;text-wrap:pretty">Fine artist creating live wedding paintings, portraits, pet portraits, spiritual art, abstract art, and custom commissions.</p>
+      </div>
+      <div>
+        <div style="font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:#C8A24A;margin-bottom:18px">● THE COLLECTION</div>
+        <div style="display:grid;gap:10px;font-size:15px">
+          <a href="#paint" style="color:rgba(255,252,241,.78)">Live Wedding Painting</a>
+          <a href="#paint" style="color:rgba(255,252,241,.78)">Portraits</a>
+          <a href="#paint" style="color:rgba(255,252,241,.78)">Spiritual Art</a>
+          <a href="#paint" style="color:rgba(255,252,241,.78)">Custom Artwork</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:#C8A24A;margin-bottom:18px">● VISIT</div>
+        <div style="display:grid;gap:10px;font-size:15px;color:rgba(255,252,241,.78)">
+          <a href="mailto:hello@shivanijaiswal.art" style="color:rgba(255,252,241,.78)">hello@shivanijaiswal.art</a>
+          <span>BFA · MFA · Based in India</span>
+          <span>Commissions open for 2026</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+class Component extends DCLogic {
+  state = { open: -1, years: 10 };
+
+  refs = {};
+  setRef = (k) => (el) => { if (el) this.refs[k] = el; };
+
+  componentDidMount() {
+    this.reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const go = () => { if (this._ran) return; this._ran = true; try { this.init(); } catch (e) { console.warn('init', e); } };
+    requestAnimationFrame(go);
+    setTimeout(go, 400);
+  }
+
+  drive(fn) {
+    const G = window.__wmDrive || (window.__wmDrive = { fns: [], started: false, lastY: -1, lastH: -1 });
+    G.fns.push(fn);
+    const run = (force) => {
+      const y = window.scrollY || document.documentElement.scrollTop || 0;
+      const h = document.documentElement.scrollHeight;
+      if (!force && y === G.lastY && h === G.lastH) return;
+      G.lastY = y; G.lastH = h;
+      G.fns.forEach((f) => { try { f(); } catch (e) {} });
+    };
+    G.run = run;
+    if (!G.started) {
+      G.started = true;
+      window.addEventListener('scroll', () => run(false), { passive: true });
+      window.addEventListener('resize', () => run(true), { passive: true });
+      const raf = () => { run(false); requestAnimationFrame(raf); };
+      raf();
+      setInterval(() => run(false), 80);
+    }
+    setTimeout(() => run(true), 200);
+    setTimeout(() => run(true), 900);
+  }
+
+  init() {
+    const r = this.refs;
+    // reveals
+    const io = new IntersectionObserver((es) => es.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('is-in');
+        io.unobserve(e.target);
+      }
+    }), { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    const els = Array.from(document.querySelectorAll('[data-reveal]'));
+    els.forEach((el, i) => {
+      if (!el.style.transitionDelay) el.style.transitionDelay = (i % 6) * 0.07 + 's';
+      io.observe(el);
+    });
+    const sweep = () => {
+      document.querySelectorAll('[data-reveal]:not(.is-in)').forEach((el, i) => {
+        if (!el.style.transitionDelay) el.style.transitionDelay = (i % 6) * 0.07 + 's';
+        if (el.getBoundingClientRect().top < innerHeight * 0.94) {
+          el.classList.add('is-in');
+        }
+        else if (!el.dataset.obs) { el.dataset.obs = '1'; io.observe(el); }
+      });
+    };
+    this.drive(sweep);
+    if (r.heroTitle) setTimeout(() => r.heroTitle.classList.add('is-in'), 700);
+
+    try { this.setupRing(); } catch (e) { console.warn(e); }
+    try { this.setupNav(); } catch (e) { console.warn(e); }
+    try { this.setupRack(); } catch (e) { console.warn(e); }
+    try { this.setupCounter(); } catch (e) { console.warn(e); }
+    if (!this.reduced) this.setupScroll();
+    else { [r.room1, r.room2].forEach(el => el && (el.style.clipPath = 'inset(0)')); if (r.rule) r.rule.style.transform = 'scaleX(1)'; }
+  }
+
+  componentDidUpdate() {
+    if (this._rackDraw) setTimeout(this._rackDraw, 60);
+    const rg = this.refs.ring;
+    if (rg) rg.querySelectorAll('img[data-src]').forEach((im) => {
+      const v = im.getAttribute('data-src');
+      if (v && v.indexOf('{{') === -1) { im.src = v; im.removeAttribute('data-src'); }
+    });
+  }
+
+  /* 3D gallery ring — the hero centrepiece */
+  setupRing() {
+    const stage = this.refs.stage, ring = this.refs.ring, cap = this.refs.ringCap;
+    if (!stage || !ring) return;
+    ring.querySelectorAll('img[data-src]').forEach((im) => {
+      const v = im.getAttribute('data-src');
+      if (v && v.indexOf('{{') === -1) { im.src = v; im.removeAttribute('data-src'); }
+    });
+    const cards = Array.from(ring.querySelectorAll('.ring-card'));
+    if (!cards.length) { if ((this._rt = (this._rt || 0) + 1) < 40) setTimeout(() => this.setupRing(), 150); return; }
+
+    const labels = (this.renderVals().pieces || []).map(p => p.label);
+    const n = cards.length, step = 360 / n;
+    let R = 520, angle = 0, vel = 0, drag = null, front = -1;
+    const entrance = 1;
+
+    const measure = () => {
+      const w = cards[0].offsetWidth || 260;
+      R = (w * 1.42) / (2 * Math.tan(Math.PI / n));
+    };
+    measure();
+    window.addEventListener('resize', () => { measure(); apply(); });
+
+    const apply = () => {
+      for (let i = 0; i < n; i++) {
+        let a = angle + i * step;
+        const rad = a * Math.PI / 180;
+        const c = Math.cos(rad);
+        const depth = (c + 1) / 2;
+        const sc = (0.82 + depth * 0.24) * (0.86 + entrance * 0.14);
+        cards[i].style.transform = 'translate(-50%,-50%) rotateY(' + (-a) + 'deg) translateZ(' + R + 'px) scale(' + sc + ')';
+        cards[i].style.opacity = (0.16 + depth * 0.84) * entrance;
+        cards[i].style.filter = 'brightness(' + (0.74 + depth * 0.26) + ') saturate(' + (0.6 + depth * 0.4) + ')';
+        cards[i].style.zIndex = Math.round(depth * 100);
+      }
+      const idx = ((Math.round(-angle / step) % n) + n) % n;
+      if (idx !== front && cap) {
+        front = idx;
+        cap.style.opacity = '0';
+        clearTimeout(this._ct);
+        this._ct = setTimeout(() => { cap.textContent = labels[idx] || ''; cap.style.opacity = '1'; }, 180);
+      }
+    };
+
+    if (this.reduced) { entrance = 1; apply(); return; }
+
+    const t0 = performance.now();
+    let lastTick = performance.now();
+    const tick = () => {
+      lastTick = performance.now();
+
+      if (drag == null) { vel += (-0.055 - vel) * 0.035; }
+      angle += vel;
+      vel *= 0.955;
+      if (drag == null && Math.abs(vel) < 0.058) vel = -0.055;
+      apply();
+    };
+    apply();
+    const drive = () => { this._raf = requestAnimationFrame(() => { tick(); drive(); }); };
+    drive();
+    this._safety = setInterval(() => { if (performance.now() - lastTick > 260) tick(); }, 60);
+
+    stage.addEventListener('pointerdown', (ev) => {
+      drag = { x: ev.clientX, a: angle };
+      vel = 0;
+      stage.style.cursor = 'grabbing';
+      stage.setPointerCapture && stage.setPointerCapture(ev.pointerId);
+    });
+    stage.addEventListener('pointermove', (ev) => {
+      if (!drag) return;
+      const prev = angle;
+      angle = drag.a + (ev.clientX - drag.x) * 0.11;
+      vel = (angle - prev) * 0.55;
+      apply();
+    });
+    const end = () => { if (drag) { drag = null; stage.style.cursor = 'grab'; } };
+    stage.addEventListener('pointerup', end);
+    stage.addEventListener('pointercancel', end);
+    stage.addEventListener('pointerleave', end);
+
+
+  }
+
+  /* paintHero removed — hero is now the 3D ring */
+
+  setupNav() {
+    const nav = this.refs.nav;
+    if (!nav) return;
+    const onScroll = () => {
+      const on = window.scrollY > 80;
+      nav.style.background = on ? 'rgba(255,252,241,.82)' : 'transparent';
+      nav.style.backdropFilter = on ? 'blur(14px)' : 'none';
+      nav.style.borderBottomColor = on ? 'rgba(130,102,100,.4)' : 'transparent';
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  setupRack() {
+    const rack = this.refs.rack, inner = this.refs.rackInner, cnt = this.refs.rackCount;
+    if (!rack || !inner) return;
+    inner.querySelectorAll('img[data-src]').forEach((im) => {
+      const v = im.getAttribute('data-src');
+      if (v && v.indexOf('{{') === -1) { im.src = v; im.removeAttribute('data-src'); }
+    });
+    const cards = Array.from(inner.querySelectorAll('.rack-card'));
+    if (!cards.length) { if ((this._kt = (this._kt || 0) + 1) < 40) setTimeout(() => this.setupRack(), 150); return; }
+    const n = cards.length;
+    rack.style.setProperty('--rackn', n);
+    const lean = [-4.2, 3.1, -2.4, 4.6, -3.6, 2.2, -5, 3.8];
+    let cur = -1;
+
+    const draw = () => {
+      const b = rack.getBoundingClientRect();
+      const span = rack.offsetHeight - window.innerHeight;
+      const p = span > 0 ? Math.max(0, Math.min(1, -b.top / span)) : 0;
+      const head = p * (n - 0.4);
+      for (let i = 0; i < n; i++) {
+        const d = head - i;
+        let x, y, z, rot, ry, op;
+        if (d < 0) {
+          const t = Math.min(1, -d);
+          const e = t * t;
+          x = 0; y = 96 * e; z = -200 * e; rot = 9 * e; ry = 0; op = 1 - Math.min(1, e * 1.1);
+        } else {
+          const t = Math.min(1, d);
+          const e = 1 - Math.pow(1 - t, 2.2);
+          x = -34 * e; y = -14 * e; z = -170 * e; rot = lean[i % lean.length] * e; ry = 13 * e;
+          op = 1 - e * 0.55;
+        }
+        cards[i].style.transform = 'translate(-50%,-50%) translate3d(' + x + '%,' + y + '%,' + z + 'px) rotateY(' + ry + 'deg) rotate(' + rot + 'deg)';
+        cards[i].style.opacity = op;
+        cards[i].style.zIndex = 100 - Math.round(Math.abs(d) * 10);
+        const cap = cards[i].querySelector('.rack-cap');
+        if (cap) cap.style.opacity = Math.abs(d) < 0.45 ? '1' : '0';
+      }
+      const idx = Math.max(0, Math.min(n - 1, Math.round(head)));
+      if (cnt && idx !== cur) { cur = idx; cnt.textContent = String(idx + 1).padStart(2, '0') + ' / ' + String(n).padStart(2, '0'); }
+    };
+    draw();
+    this.drive(draw);
+    this._rackDraw = draw;
+  }
+
+  setupCounter() {
+    const el = this.refs.counter;
+    if (!el || this.reduced) return;
+    const io = new IntersectionObserver((es) => es.forEach(e => {
+      if (!e.isIntersecting) return;
+      io.disconnect();
+      let n = 0;
+      const t = setInterval(() => { n += 1; el.textContent = n; if (n >= 10) clearInterval(t); }, 70);
+    }), { threshold: 0.6 });
+    io.observe(el);
+  }
+
+  setupScroll() {
+    const r = this.refs;
+    const gsap = window.gsap, ST = window.ScrollTrigger;
+    if (window.Lenis) {
+      const lenis = new window.Lenis({ lerp: 0.09 });
+      const raf = (t) => { lenis.raf(t); requestAnimationFrame(raf); };
+      requestAnimationFrame(raf);
+      if (gsap && ST) { lenis.on('scroll', ST.update); }
+    }
+    if (!gsap || !ST) {
+      [r.room1, r.room2].forEach(el => el && (el.style.transition = 'clip-path .9s ease', el.style.clipPath = 'inset(0)'));
+      if (r.rule) r.rule.style.transform = 'scaleX(1)';
+      return;
+    }
+    gsap.registerPlugin(ST);
+
+    if (r.heroFrame) gsap.to(r.heroFrame, { yPercent: 14, ease: 'none', scrollTrigger: { trigger: r.heroFrame, start: 'top top', end: 'bottom top', scrub: true } });
+    document.querySelectorAll('[data-para]').forEach(el => {
+      gsap.to(el, { yPercent: -14, ease: 'none', scrollTrigger: { trigger: el.closest('section'), start: 'top bottom', end: 'bottom top', scrub: true } });
+    });
+
+    [[r.room1, '20%'], [r.room2, '18%']].forEach(([el, pad]) => {
+      if (!el) return;
+      gsap.fromTo(el, { clipPath: 'inset(0 ' + pad + ' 0 ' + pad + ' round 24px)' }, {
+        clipPath: 'inset(0px round 0px)', ease: 'none',
+        scrollTrigger: { trigger: el, start: 'top 88%', end: 'top 40%', scrub: true }
+      });
+    });
+
+    if (r.scrubText) {
+      const words = r.scrubText.textContent.split(' ');
+      r.scrubText.innerHTML = words.map(w => '<span style="opacity:.2">' + w + '</span>').join(' ');
+      gsap.to(r.scrubText.children, { opacity: 1, stagger: 1, ease: 'none', scrollTrigger: { trigger: r.scrubText, start: 'top 75%', end: 'bottom 55%', scrub: true } });
+    }
+
+    if (r.liveImg) gsap.fromTo(r.liveImg, { scale: 1.15 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: r.liveRoom, start: 'top bottom', end: 'bottom top', scrub: true } });
+
+    if (r.rule) ST.create({ trigger: r.rule, start: 'top 85%', once: true, onEnter: () => { r.rule.style.transform = 'scaleX(1)'; } });
+  }
+
+  renderVals() {
+    const open = this.state.open;
+    const faqData = [
+      ['What kind of artwork do you create?', 'I create live wedding paintings, portraits, pet portraits, religious and spiritual art, abstract pieces, and custom commissioned artwork.'],
+      ['Do you only paint weddings?', 'No. Live wedding painting is one part of my work. I also take personal commissions for portraits, pets, spiritual artwork, abstract pieces, and other custom ideas.'],
+      ['What medium do you use for live wedding paintings?', 'I use acrylic paint for live weddings because it allows me to work efficiently at the venue and complete the artwork during the event.'],
+      ['Is the wedding painting completed at the venue?', 'Yes. The painting is completed at the wedding venue and does not go through a separate studio-finishing stage afterwards.'],
+      ['Can you create a painting from a photograph?', 'Yes. Many portraits and custom commissions begin with photographs or other visual references.'],
+      ['Do you travel for weddings?', 'Yes. I travel for selected weddings across India and can also discuss destination and international enquiries depending on availability.']
+    ];
+
+    return {
+      nav: this.setRef('nav'), heroFrame: this.setRef('heroFrame'),
+      heroTitle: this.setRef('heroTitle'), stage: this.setRef('stage'), ring: this.setRef('ring'), ringCap: this.setRef('ringCap'),
+      room1: this.setRef('room1'), room2: this.setRef('room2'), scrubText: this.setRef('scrubText'),
+      rack: this.setRef('rack'), rackInner: this.setRef('rackInner'), rackCount: this.setRef('rackCount'), liveRoom: this.setRef('liveRoom'),
+      liveImg: this.setRef('liveImg'), counter: this.setRef('counter'), rule: this.setRef('rule'),
+
+      pieces: [
+        { src: 'assets/painting-varmala-sunset.png', alt: 'Varmala painting at sunset', label: 'LIVE WEDDING PAINTING · ACRYLIC ON CANVAS · PAINTED AT THE VENUE' },
+        { src: 'assets/painting-couple-closeup.png', alt: 'Close study of a painted couple', label: 'PORTRAIT COMMISSION · FROM PHOTOGRAPHS AND REFERENCES' },
+        { src: 'assets/charcoal-portrait-study.png', alt: 'Charcoal portrait study', label: 'PORTRAIT STUDY · CHARCOAL ON PAPER' },
+        { src: 'assets/shivani-spiritual-painting.png', alt: 'Spiritual painting', label: 'RELIGIOUS & SPIRITUAL ART · COMMISSIONED FOR THE HOME' },
+        { src: 'assets/painting-and-real-mandap.png', alt: 'Painting beside the mandap', label: 'LIVE WEDDING PAINTING · THE REVEAL, AT THE MANDAP' },
+        { src: 'assets/easel-in-venue.png', alt: 'Easel set up at the venue', label: 'THE SETUP · EASEL IN PLACE BEFORE THE CEREMONY' },
+        { src: 'assets/shivani-painting-live.png', alt: 'Shivani painting live', label: 'IN PROGRESS · PAINTED AS THE CELEBRATION UNFOLDS' }
+      ],
+
+      collections: [
+        { title: 'Live Wedding Painting', label: 'ACRYLIC ON CANVAS · PAINTED AT THE VENUE', body: 'Your wedding, painted as it unfolds. I paint your chosen moment live at the venue with acrylics, completing the artwork during the celebration.', cta: 'Explore Live Wedding Painting', src: 'assets/shivani-painting-mandap-live.png' },
+        { title: 'Portraits', label: 'FROM PHOTOGRAPHS AND REFERENCES', body: 'Personal portraits of couples, families, parents, and individuals, created from photographs and meaningful references.', cta: 'View Portraits', src: 'assets/charcoal-portrait-study.png' },
+        { title: 'Pet Portraits', label: 'IMAGE TO BE SUPPLIED', body: 'Because pets may be small, but they become such a big part of the family. I try to capture the little expressions and details that make your pet so special to you.', cta: 'View Pet Portraits', src: null, empty: true },
+        { title: 'Religious & Spiritual Art', label: 'DEVOTIONAL WORK · FOR THE HOME OR AS A GIFT', body: 'Paintings inspired by faith, tradition, and devotion, from deities and sacred scenes to artwork created especially for your home or as a meaningful gift.', cta: 'Explore Spiritual Art', src: 'assets/shivani-spiritual-painting.png' },
+        { title: 'Abstract Art', label: 'IMAGE TO BE SUPPLIED', body: 'Original pieces shaped by colour, movement, texture, and feeling. Created for people who connect with art without needing it to tell a literal story.', cta: 'Explore Abstract Art', src: null, empty: true },
+        { title: 'Custom Artwork', label: 'COMMISSION · BUILT AROUND YOUR STORY', body: 'Have something else in mind? A home. A place. A photograph. A memory. A gift. An idea. Tell me about it, and we can create something around your story.', cta: 'Discuss a Custom Piece', src: 'assets/painting-couple-closeup.png' }
+      ],
+
+      steps: [
+        { n: '01', title: 'Tell Me What You Have in Mind', body: 'Share your idea, reference photograph or, for a wedding, your date and venue.' },
+        { n: '02', title: 'We Plan the Piece', body: 'We decide the subject, size, composition, and the details that matter most to you.' },
+        { n: '03', title: 'I Begin Painting', body: 'Live wedding paintings are created in acrylic at the venue. Other commissions are created according to the agreed process and timeline.' },
+        { n: '04', title: 'Your Painting Is Ready', body: 'A finished, original piece created specifically for you.' }
+      ],
+
+      chips: ['BFA & MFA in Fine Arts', '10+ Years of Experience', 'Advanced Atelier Training', 'Original Hand-Painted Artwork'],
+
+      pillars: [
+        { title: 'Fine Art Training', body: 'BFA and MFA in Fine Arts, with more than ten years of professional painting experience.' },
+        { title: 'Every Piece Is Personal', body: 'No templates. No two commissions begin with exactly the same story.' },
+        { title: 'Experience With Live Events', body: 'Years of painting around real celebrations have taught me how to work within the energy of the event without becoming a distraction.' },
+        { title: 'Original Artwork', body: 'Every canvas is individually painted and created as an original piece.' }
+      ],
+
+      faqs: faqData.map(([q, a], i) => ({
+        q, a,
+        rot: open === i ? 'rotate(45deg)' : 'rotate(0deg)',
+        h: open === i ? 'auto' : '0px',
+        o: open === i ? 1 : 0,
+        toggle: () => this.setState({ open: open === i ? -1 : i })
+      }))
+    };
+  }
+}
+</script>
+</body>
+</html>
