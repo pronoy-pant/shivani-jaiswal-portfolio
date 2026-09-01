@@ -1,70 +1,88 @@
-# Shivani Jaiswal — Homepage Directions (v2)
+# Shivani Jaiswal — Site
 
-Three homepage directions built after the client feedback (25 Aug 2026): more
-"pyari", more professional, colour experimentation welcome. References supplied:
-granth.in, artora.framer.website, impactfloww.framer.website, asana.framer.website.
+Single homepage direction, chosen and built out: **Midnight Reel**
+(`Homepage 2d Midnight Reel.dc.html`). Earlier comparison directions (1a, 1c,
+2a/b/c/e, 3a/b/c, Direction Studies) were discarded once this one was picked.
 
-All three use the same content and the same section order, so they can be
-compared purely on look and feel:
+## Midnight Reel — full site
 
-Header → Hero → Intent ("Made to Mean Something") → Live wedding painting →
-What I Paint (6) → A few pieces → About → From an Idea to a Painting → Final CTA → Footer
+One page per client content doc, all sharing the same palette / type / header
+/ footer:
 
-Not yet built in any of them (deliberately on hold): testimonials, FAQ, journal /
-Instagram strip, inner pages.
+| Page | File | Source doc |
+| --- | --- | --- |
+| Home | `Homepage 2d Midnight Reel.dc.html` | 1. Home Page |
+| About + Meet Our Team | `About.dc.html` | 2. About Page, Meet Our Team |
+| Collections | `Collections.dc.html` | 3. Collections |
+| Live Wedding Painting | `Live Wedding Painting.dc.html` | 4. Live wedding painting page |
+| Gallery | `Gallery.dc.html` | 5. Gallery Page |
+| Kind Words | `Kind Words.dc.html` | 6. Testimonials |
+| Journal | `Blog.dc.html` + `BlogPost.dc.html` | 7. Blog Page |
+| Enquire | `Enquire.dc.html` | 8. Contact me |
 
----
+Palette: ink `#120E1A`, panel `#1B1526`, gold `#E0B25C`, warm white `#F3EDE4`.
+Type: Cormorant Garamond (serif display) + Jost (UI/body).
 
-## 2a — Midnight Gallery
-`Homepage 2a Midnight Gallery.dc.html`
+Nav: Collections · Live Weddings · Gallery · About · Journal · Enquire.
+Kind Words and Meet the Team sit in the footer / About page.
 
-Reference lineage: Artora (art museum elegance).
+Copy is verbatim from the docs. Client-action items are left in the page as
+bracketed `[CLIENT: …]` lines (international shipping, travel & stay, final
+email address) and `[ ]` placeholders where real testimonials, couple names,
+and captions are still needed.
 
-Positions Shivani as a gallery-grade artist. Dark room, artwork lit like an
-exhibit, everything else quiet.
+## Imagery
 
-- Palette: ink `#120E1A`, panel `#1B1526`, gold `#E0B25C`, warm white `#F3EDE4`
-- Type: Cormorant Garamond (light, italic accents) + Jost for UI
-- Layout: centred hero with a soft gold glow, then a full-bleed auto-scrolling
-  gallery strip; cards on panels; pill buttons
-- Motion: marquee gallery, slow glow pulse, rise-in on hero
-- Feels: premium, calm, collectible. Weakest for warmth/wedding joy.
+Real photos supplied by the client (Drive folders, Aug–Sep 2026) replaced the
+placeholder assets throughout, plus a second curation pass pulling ~16 more
+images from "Shivani Drive pictures 2" (event folders + the Shivani
+Artwork/artwork folders) to de-densify the Live Weddings page and give
+Gallery/Collections/Home distinct, non-repeating imagery. Every image used
+shows an actual painting (finished canvas, work-in-progress, or a painting
+alongside real clients) — plain event/venue photos with no artwork visible
+are not used.
 
-## 2b — Marigold Bold
-`Homepage 2b Marigold Bold.dc.html`
+Note: most of the client's raw phone photos ship with no EXIF orientation
+tag, so a large batch (~35 files across the original and second imports)
+needed a manual 90° rotation fix. If more images are added from the same
+Drive folders later, check orientation before use — `sips -g orientation`
+returns nothing useful; visually inspect instead.
 
-Reference lineage: Granth (oversized type, hard colour blocks).
+Two subjects have no real photo yet and are shown as labelled "Image to
+supply" slots rather than a mismatched stand-in: **pet portraits** and
+**abstract art**. These appear in the "What I Paint" section on the homepage,
+in the Gallery/Collections pet and abstract sections, and in the Live
+Weddings "Which Wedding Moment" grid (Your Pets) — swap for real photos once
+the client supplies them.
 
-The most confident and the most Indian in colour. Headlines carry the page.
+The "A Few Pieces From My World" section on the homepage is a scroll-driven
+3D fold-flat card reveal: 4 cards (trimmed from an earlier 6), category pill
+top-left, `rotateX` driven directly by each card's own scroll progress via
+`updateCaseStudyStage()` (no fixed-duration animation), flattening and
+staying flat as it passes the upper third of the viewport. See the
+component's script in `Homepage 2d Midnight Reel.dc.html` for the effect —
+it's vanilla JS/CSS (no React/Framer Motion dependency; the site has no
+build pipeline), chosen deliberately over a rewrite since the existing
+implementation already satisfied the brief.
 
-- Palette: cream `#FFF7EC`, vermilion `#C4361B`, marigold `#F2A93B`, near-black `#1E1408`
-- Type: Bricolage Grotesque 800 uppercase display + DM Sans for body
-- Layout: full-width type-first hero, 2px rules, edge-to-edge colour sections,
-  a grid of hard-edged cards, marigold ticker of services
-- Motion: infinite ticker, rise-in, colour hover on cards
-- Feels: bold, contemporary, high-energy. Loudest of the three.
+Gallery and Collections cover overlapping categories but serve different
+jobs, kept intentionally distinct rather than merged: Collections is the
+commission pitch (short copy, FAQs, 1-2 images per category, strong CTA per
+category — plus 3 categories Gallery doesn't cover: events, hospitality,
+weddings-as-a-service). Gallery is the visual portfolio (bigger grids, more
+images per category, "Behind the Scenes" process shots). Each links to the
+other ("Want to Commission Your Own? See Collections" on Gallery; "Explore My
+Work" on Collections).
 
-## 2c — Soft Bloom
-`Homepage 2c Soft Bloom.dc.html`
-
-The "bhot pyari" route — softness as the whole idea.
-
-- Palette: blush cream `#FBF4F1`, rose `#9C4E58`, peach `#EFD3C6`, sage `#E3EADF`
-- Type: Marcellus (serif display) + Karla for body
-- Layout: split hero with an arched image over a floating sage blob, arched
-  gallery figures on alternating vertical offsets, rounded 20px cards, pill chips
-  for credentials
-- Motion: gentle float on the hero shape, rise-in
-- Feels: warm, feminine, wedding-ready. Softest and most approachable.
-
----
+Blog/Enquire content is placeholder (bracketed `[ ]` text) — client to supply
+real copy and post content. Kind Words' "[Couple Names]" testimonial slots
+are also placeholder, left as-is — they need real, specific client quotes
+and photos rather than a generic stand-in.
 
 ## Shared rules
 
 - Copy is the client's own, verbatim from `content.md`.
-- Images from `assets/`; missing subjects (pet portraits, abstract work) appear as
-  labelled image slots to be filled with real work.
-- Every direction is responsive down to ~360px, honours
-  `prefers-reduced-motion`, and keeps body text at 15px or above.
-- Earlier explorations kept for reference: `Homepage 1a Editorial Romance`,
-  `Homepage 1c Contemporary Gallery`, `Direction Studies`.
+- Images live in `assets/`; each is used once per page — no repeats of the
+  same photo, and no reuse of a similar-looking photo in a nearby section.
+- Responsive down to ~360px, honours `prefers-reduced-motion`, body text
+  15px or above.
