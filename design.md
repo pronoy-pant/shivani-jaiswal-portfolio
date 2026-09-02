@@ -42,11 +42,26 @@ shows an actual painting (finished canvas, work-in-progress, or a painting
 alongside real clients) — plain event/venue photos with no artwork visible
 are not used.
 
-Note: most of the client's raw phone photos ship with no EXIF orientation
-tag, so a large batch (~35 files across the original and second imports)
-needed a manual 90° rotation fix. If more images are added from the same
-Drive folders later, check orientation before use — `sips -g orientation`
-returns nothing useful; visually inspect instead.
+Orientation: an earlier rotation pass turned most of the library the wrong way,
+so ~38 of the 46 files sat on their side on the live site. All 46 have now been
+rotated to render upright **in Chrome** and re-verified there.
+
+Do not trust `sips`, the Read tool, or ffmpeg's default decode on these files —
+they disagree with each other, because a handful carry an EXIF orientation tag
+the others don't. The only reliable check is to render `assets/*.jpg` in a real
+browser and look. To fix one, go via PNG so no metadata survives to flip the
+rotation back:
+
+    ffmpeg -noautorotate -i in.jpg -map_metadata -1 tmp.png
+    ffmpeg -i tmp.png -vf transpose=2 -map_metadata -1 -q:v 2 out.jpg
+
+(`transpose=2` is 90° counter-clockwise, `transpose=1` clockwise.) Check any
+newly added photo the same way.
+
+Two naming traps in `assets/`: `charcoal-portrait-study.jpg` is a photo of a
+Ganesh statue (a duplicate of `reel-portrait.jpg`) — the actual charcoal
+portrait is `bts-4.jpg`; and `shivani-spiritual-painting.jpg` and
+`reel-spiritual.jpg` are the same photograph under two names.
 
 Two subjects have no real photo yet and are shown as labelled "Image to
 supply" slots rather than a mismatched stand-in: **pet portraits** and
@@ -56,14 +71,28 @@ Weddings "Which Wedding Moment" grid (Your Pets) — swap for real photos once
 the client supplies them.
 
 The "A Few Pieces From My World" section on the homepage is a scroll-driven
-3D fold-flat card reveal: 4 cards (trimmed from an earlier 6), category pill
-top-left, `rotateX` driven directly by each card's own scroll progress via
-`updateCaseStudyStage()` (no fixed-duration animation), flattening and
-staying flat as it passes the upper third of the viewport. See the
-component's script in `Homepage 2d Midnight Reel.dc.html` for the effect —
-it's vanilla JS/CSS (no React/Framer Motion dependency; the site has no
-build pipeline), chosen deliberately over a rewrite since the existing
-implementation already satisfied the brief.
+3D fold reveal, rebuilt in Sep 2026 to match a reference recording the client
+supplied. The cards stand upright across the middle band of the viewport and
+lie flat away from the viewer at either end — they do not fold in on entry and
+latch flat, which is what the earlier version did and what the client called
+"very subtle".
+
+Measured off the reference and implemented in `updateCaseStudyStage()`:
+`perspective: 2600px` on the wrapper (roughly 4x the card height — a much
+flatter perspective than the old 1000px, which is what lets a ~54° rotation
+read as a fold rather than a warp), `transform-origin: center`, `rotateX` 0 →
+54°, `scale` 1 → 0.81, plus a `[data-cs-dim]` ink overlay 0 → 0.52. Progress is
+each card's own position in the viewport, eased `t²`, and the bands are
+deliberately asymmetric: a card holds upright much longer coming in from the
+bottom than it does going out the top.
+
+Cards are `aspect-ratio: 1/1` — a compromise. The reference's cards are 2:1
+landscape, but these photos are 3:4 portrait and a landscape card cropped the
+faces and canvases out of frame. Square keeps the subject and still leaves the
+fold room to read.
+
+Vanilla JS/CSS throughout (no React/Framer Motion; the site has no build
+pipeline).
 
 Gallery and Collections cover overlapping categories but serve different
 jobs, kept intentionally distinct rather than merged: Collections is the
@@ -74,10 +103,18 @@ images per category, "Behind the Scenes" process shots). Each links to the
 other ("Want to Commission Your Own? See Collections" on Gallery; "Explore My
 Work" on Collections).
 
-Blog/Enquire content is placeholder (bracketed `[ ]` text) — client to supply
-real copy and post content. Kind Words' "[Couple Names]" testimonial slots
-are also placeholder, left as-is — they need real, specific client quotes
-and photos rather than a generic stand-in.
+The homepage "What Clients Say" section is a rotating testimonial carousel
+(7 quotes, 6.5s auto-advance, click-to-jump dots, pauses on hover and focus,
+static under `prefers-reduced-motion`). The quotes are **real, publicly posted
+reviews republished from the client's WedMeGood profile**, attributed by name,
+with the source credited in the section ("5.0 from 20 reviews on WedMeGood").
+Three further reviews exist but were left out because only truncated text was
+available — do not reconstruct them. Confirm with the client that they are
+happy to republish reviewer names before this goes live.
+
+Blog/Enquire content is still placeholder (bracketed `[ ]` text) — client to
+supply real copy and post content. The `Kind Words.dc.html` page still has its
+"[Couple Names]" placeholder slots.
 
 ## Shared rules
 

@@ -1,0 +1,9 @@
+# Working material, not part of the site. No page references any of these.
+uploads/
+screenshots/
+content/
+content.md
+design.md
+.impeccable/
+.thumbnail
+*.mov
