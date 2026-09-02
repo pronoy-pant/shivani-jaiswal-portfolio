@@ -25,7 +25,7 @@
 
 <main style="font-family:'Jost',sans-serif; background:#120E1A">
   <header style="position:fixed; top:0; left:0; right:0; z-index:60; display:flex; align-items:center; justify-content:space-between; gap:14px 28px; flex-wrap:wrap; padding:18px clamp(20px,4vw,60px); background:rgba(18,14,26,.55); backdrop-filter:blur(14px)">
-    <a href="Homepage 2d Midnight Reel.dc.html" style="display:flex; align-items:center; gap:13px; color:#F3EDE4">
+    <a href="index.html" style="display:flex; align-items:center; gap:13px; color:#F3EDE4">
       <img src="assets/logo.png" alt="Shivani Jaiswal" style="width:50px; height:50px; border-radius:50%; object-fit:cover">
     </a>
     <nav style="display:flex; flex-wrap:wrap; gap:10px clamp(12px,1.8vw,24px); font-size:11px; letter-spacing:.2em; text-transform:uppercase">
@@ -38,13 +38,16 @@
     </nav>
   </header>
 
-  <section style="padding:clamp(140px,16vw,220px) clamp(20px,4vw,60px) clamp(46px,5.6vw,74px)">
+  <section style="position:relative; min-height:82vh; display:flex; align-items:flex-end; overflow:hidden">
+    <img src="assets/reveal-kerala-artist.jpg" alt="Shivani beside a finished live wedding painting" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 35%">
+    <div style="position:absolute; inset:0; background:linear-gradient(105deg, rgba(18,14,26,.95) 0%, rgba(18,14,26,.7) 52%, rgba(18,14,26,.35) 100%)"></div>
+    <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(18,14,26,.8) 0%, rgba(18,14,26,.35) 40%, rgba(18,14,26,.95) 100%)"></div>
+    <div style="position:relative; width:100%; padding:clamp(120px,14vw,180px) clamp(20px,4vw,60px) clamp(56px,7vw,96px)">
     <div style="max-width:1440px; margin:0 auto">
-      <div style="font-size:11px; letter-spacing:.26em; text-transform:uppercase; color:#E0B25C; margin-bottom:26px">Gallery</div>
       <h1 style="font-family:'Cormorant Garamond',serif; font-weight:300; font-size:clamp(48px,8vw,128px); line-height:.94; letter-spacing:-.025em; margin:0 0 30px">My Paintings</h1>
       <p style="font-size:20px; font-weight:300; line-height:1.6; margin:0 0 12px; color:rgba(243,237,228,.86); max-width:50ch">A collection of live wedding paintings, portraits, pet portraits, spiritual art, and custom artwork.</p>
       <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(20px,2.4vw,28px); font-weight:300; line-height:1.5; margin:0 0 20px">Every painting has its own story.</p>
-      <a href="Collections.dc.html" style="display:inline-block; font-size:11px; letter-spacing:.22em; text-transform:uppercase; border-bottom:1px solid rgba(224,178,92,.6); padding-bottom:5px; margin-bottom:38px">Want to Commission Your Own? See Collections</a>
+      <a href="Collections.dc.html" style="display:inline-block; font-size:11px; letter-spacing:.22em; text-transform:uppercase; border-bottom:1px solid rgba(224,178,92,.6); padding-bottom:5px; margin-bottom:38px">View the Collection</a>
       <div style="font-size:11px; letter-spacing:.26em; text-transform:uppercase; color:rgba(243,237,228,.5); margin-bottom:16px">Explore the Gallery</div>
       <div style="display:flex; flex-wrap:wrap; gap:10px">
         <a href="#live-weddings" style="border:1px solid rgba(243,237,228,.22); border-radius:100px; padding:11px 20px; font-size:14px; color:rgba(243,237,228,.86)">Live Wedding Paintings</a>
@@ -56,6 +59,7 @@
         <a href="#behind" style="border:1px solid rgba(243,237,228,.22); border-radius:100px; padding:11px 20px; font-size:14px; color:rgba(243,237,228,.86)">Behind the Scenes</a>
       </div>
     </div>
+    </div>
   </section>
 
   <section id="live-weddings" data-reveal="" style="padding:clamp(60px,7.5vw,110px) clamp(20px,4vw,60px); border-top:1px solid rgba(243,237,228,.1)">
@@ -66,67 +70,44 @@
         <p style="font-size:15px; line-height:1.9; margin:0; color:rgba(243,237,228,.62)">These paintings capture the people, colours, details, and emotions of real celebrations as they happen.</p>
       </div>
 
-      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:clamp(28px,3.4vw,52px)">
-        <figure style="margin:0">
-          <img src="assets/painting-varmala-sunset.jpg" alt="Sunset couple portrait painted at a beach wedding in Kerala" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:6px; display:block; margin-bottom:20px">
-          <figcaption>
-            <h3 style="font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:400; font-size:clamp(26px,3vw,38px); line-height:1.1; margin:0 0 14px">A Sunset Wedding in Kerala</h3>
-            <div style="font-size:14px; line-height:1.7; color:rgba(243,237,228,.74)">Beach wedding in Kerala</div>
-            <div style="font-size:14px; line-height:1.7; color:rgba(243,237,228,.74)">Sunset couple portrait</div>
-            <div style="font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:#E0B25C; margin:12px 0 14px">18 × 24 inches, acrylic on canvas</div>
-            <p style="font-size:15px; line-height:1.85; margin:0; color:rgba(243,237,228,.62); max-width:46ch">The light changed quickly that evening, so I had only a few minutes to capture the colours before sunset.</p>
-          </figcaption>
-        </figure>
-        <figure style="margin:0">
-          <img src="assets/live-finished-real.jpg" alt="Wedding painting revealed to a couple at a gurudwara" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:6px; display:block; margin-bottom:20px">
-          <figcaption>
-            <h3 style="font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:400; font-size:clamp(26px,3vw,38px); line-height:1.1; margin:0 0 14px">A Sikh Wedding</h3>
-            <div style="font-size:14px; line-height:1.7; color:rgba(243,237,228,.74)">Gurudwara ceremony</div>
-            <div style="font-size:14px; line-height:1.7; color:rgba(224,178,92,.8)">[Wedding moment]</div>
-            <div style="font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:#E0B25C; margin:12px 0 14px">24 × 36 inches, acrylic on canvas</div>
-            <p style="font-size:15px; line-height:1.85; margin:0; color:rgba(224,178,92,.8); max-width:46ch">[Add a short real detail or story from this wedding.]</p>
-          </figcaption>
-        </figure>
-        <figure style="margin:0">
-          <img src="assets/painting-couple-closeup.jpg" alt="Couple painted beneath a floral archway" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:6px; display:block; margin-bottom:20px">
-          <figcaption>
-            <h3 style="font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:400; font-size:clamp(26px,3vw,38px); line-height:1.1; margin:0 0 14px">Under the Archway</h3>
-            <div style="font-size:14px; line-height:1.7; color:rgba(224,178,92,.8)">[City]</div>
-            <div style="font-size:14px; line-height:1.7; color:rgba(224,178,92,.8)">[Wedding moment]</div>
-            <div style="font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:rgba(224,178,92,.8); margin:12px 0 14px">[Canvas size], acrylic on canvas</div>
-            <p style="font-size:15px; line-height:1.85; margin:0; color:rgba(224,178,92,.8); max-width:46ch">[A short real detail or story from the wedding]</p>
-          </figcaption>
-        </figure>
-        <figure style="margin:0">
-          <img src="assets/reel-live-wedding-2.jpg" alt="Wedding painting on the easel beneath a floral arch" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:6px; display:block; margin-bottom:20px">
-          <figcaption>
-            <h3 style="font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:400; font-size:clamp(26px,3vw,38px); line-height:1.1; margin:0 0 14px">Painted at the Mandap</h3>
-            <div style="font-size:14px; line-height:1.7; color:rgba(224,178,92,.8)">[City]</div>
-            <div style="font-size:14px; line-height:1.7; color:rgba(224,178,92,.8)">[Wedding moment]</div>
-            <div style="font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:rgba(224,178,92,.8); margin:12px 0 14px">[Canvas size], acrylic on canvas</div>
-            <p style="font-size:15px; line-height:1.85; margin:0; color:rgba(224,178,92,.8); max-width:46ch">[A short real detail or story from the wedding]</p>
-          </figcaption>
-        </figure>
-        <figure style="margin:0">
-          <img src="assets/gallery-extra-1.jpg" alt="A finished wedding painting, delivered to the couple" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:6px; display:block; margin-bottom:20px">
-          <figcaption>
-            <h3 style="font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:400; font-size:clamp(26px,3vw,38px); line-height:1.1; margin:0 0 14px">A Finished Portrait, Delivered</h3>
-            <div style="font-size:14px; line-height:1.7; color:rgba(224,178,92,.8)">[City]</div>
-            <div style="font-size:14px; line-height:1.7; color:rgba(224,178,92,.8)">[Wedding moment]</div>
-            <div style="font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:rgba(224,178,92,.8); margin:12px 0 14px">[Canvas size], acrylic on canvas</div>
-            <p style="font-size:15px; line-height:1.85; margin:0; color:rgba(224,178,92,.8); max-width:46ch">[A short real detail or story from the wedding]</p>
-          </figcaption>
-        </figure>
-      </div>
-      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:clamp(14px,1.8vw,22px); margin-top:clamp(28px,3.4vw,52px)">
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:clamp(16px,2vw,26px)">
+        <img src="assets/painting-varmala-sunset.jpg" alt="Sunset couple portrait painted at a beach wedding in Kerala" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:6px; display:block">
+        <img src="assets/live-finished-real.jpg" alt="Wedding painting revealed to a couple at a gurudwara" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:6px; display:block">
+        <img src="assets/painting-couple-closeup.jpg" alt="Couple painted beneath a floral archway" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:6px; display:block">
+        <img src="assets/gallery-extra-1.jpg" alt="A finished wedding painting, delivered to the couple" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:6px; display:block">
         <img src="assets/reveal-kerala-wreath.jpg" alt="The finished painting held up beside a floral wreath" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:6px; display:block">
         <img src="assets/reveal-punjabi-sword.jpg" alt="A Punjabi wedding painting revealed to the couple" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:6px; display:block">
         <img src="assets/painting-night-mandap-jaipur.jpg" alt="A night mandap painted in Jaipur" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:6px; display:block">
         <img src="assets/painting-closeup-sikh-couple.jpg" alt="Close detail of a Sikh couple on canvas" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:6px; display:block">
         <img src="assets/reveal-mumbai-reception.jpg" alt="A reception painting revealed in Mumbai" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:6px; display:block">
-        <img src="assets/painting-couple-varmala-real.jpg" alt="The varmala moment, painted and photographed side by side" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:6px; display:block">
-        <img src="assets/reveal-hubli-haldi.jpg" alt="A haldi ceremony painting in Hubli" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:6px; display:block">
         <img src="assets/painting-closeup-mandap-raipur.jpg" alt="Close detail of a mandap painting from Raipur" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:6px; display:block">
+      </div>
+      <div style="font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:rgba(224,178,92,.8); margin-top:clamp(26px,3vw,40px)">[ Add Gallery Images Here ]</div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:clamp(30px,4vw,64px); margin-top:clamp(40px,5vw,72px); border-top:1px solid rgba(243,237,228,.12); padding-top:clamp(34px,4vw,56px)">
+        <div>
+          <h3 style="font-family:'Cormorant Garamond',serif; font-weight:400; font-size:clamp(22px,2.4vw,30px); margin:0 0 18px">Suggested Caption Style</h3>
+          <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(22px,2.6vw,32px); line-height:1.15; margin:0 0 12px">Shreya and Onkar</div>
+          <div style="font-size:14px; line-height:1.7; color:rgba(224,178,92,.8)">Live wedding painting in [City]</div>
+          <div style="font-size:14px; line-height:1.7; color:rgba(224,178,92,.8)">[Wedding moment]</div>
+          <div style="font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:rgba(224,178,92,.8); margin:12px 0 14px">[Canvas size], acrylic on canvas</div>
+          <p style="font-size:15px; line-height:1.85; margin:0; color:rgba(224,178,92,.8); max-width:46ch">[A short real detail or story from the wedding]</p>
+        </div>
+        <div>
+          <h3 style="font-family:'Cormorant Garamond',serif; font-weight:400; font-size:clamp(22px,2.4vw,30px); margin:0 0 18px">Example</h3>
+          <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(22px,2.6vw,32px); line-height:1.15; margin:0 0 12px">A Sunset Wedding in Kerala</div>
+          <div style="font-size:14px; line-height:1.7; color:rgba(243,237,228,.74)">Beach wedding in Kerala</div>
+          <div style="font-size:14px; line-height:1.7; color:rgba(243,237,228,.74)">Sunset couple portrait</div>
+          <div style="font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:#E0B25C; margin:12px 0 14px">18 x 24 inches, acrylic on canvas</div>
+          <p style="font-size:15px; line-height:1.85; margin:0; color:rgba(243,237,228,.62); max-width:46ch">The light changed quickly that evening, so I had only a few minutes to capture the colours before sunset.</p>
+        </div>
+        <div>
+          <h3 style="font-family:'Cormorant Garamond',serif; font-weight:400; font-size:clamp(22px,2.4vw,30px); margin:0 0 18px">&nbsp;</h3>
+          <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(22px,2.6vw,32px); line-height:1.15; margin:0 0 12px">Bangalore Wedding</div>
+          <div style="font-size:14px; line-height:1.7; color:rgba(243,237,228,.74)">Live wedding painting in Bangalore</div>
+          <div style="font-size:14px; line-height:1.7; color:rgba(224,178,92,.8)">[Wedding moment]</div>
+          <div style="font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:#E0B25C; margin:12px 0 14px">24 x 36 inches, acrylic on canvas</div>
+          <p style="font-size:15px; line-height:1.85; margin:0; color:rgba(224,178,92,.8); max-width:46ch">[Add a short real detail or story from the Bangalore wedding.]</p>
+        </div>
       </div>
     </div>
   </section>
@@ -137,12 +118,12 @@
         <h2 style="font-family:'Cormorant Garamond',serif; font-weight:300; font-size:clamp(34px,4.8vw,72px); line-height:1.02; letter-spacing:-.02em; margin:0 0 22px">Portraits</h2>
         <p style="font-size:15px; line-height:1.9; margin:0 0 12px; color:rgba(243,237,228,.7); max-width:50ch">Personal portraits created from photographs and meaningful memories.</p>
         <p style="font-size:15px; line-height:1.9; margin:0 0 28px; color:rgba(243,237,228,.62); max-width:50ch">From couples and families to parents and grandparents, each painting is created to feel personal to the people in it.</p>
-        <a href="Enquire.dc.html" style="display:inline-block; font-size:11px; letter-spacing:.22em; text-transform:uppercase; border-bottom:1px solid rgba(224,178,92,.6); padding-bottom:6px">Enquire About a Portrait</a>
+        <div style="font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:rgba(224,178,92,.8); margin-top:clamp(24px,2.8vw,34px)">[ Add Portrait Gallery Images Here ]</div>
       </div>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px">
         <img src="assets/bts-4.jpg" alt="Charcoal portrait study" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:6px; display:block">
         <img src="assets/portrait-painting-progress.jpg" alt="A portrait being painted from a photograph" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:6px; display:block">
-        <img src="assets/reel-live-wedding-1.jpg" alt="A couple with their finished portrait" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:6px; display:block">
+        <img src="assets/about-artist.jpg" alt="A portrait painting in progress in the studio" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:6px; display:block">
         <img src="assets/shivani-with-painting.jpg" alt="Shivani with a finished commissioned portrait" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:6px; display:block">
       </div>
     </div>
@@ -160,7 +141,7 @@
         <h2 style="font-family:'Cormorant Garamond',serif; font-weight:300; font-size:clamp(34px,4.8vw,72px); line-height:1.02; letter-spacing:-.02em; margin:0 0 22px">Pet Portraits</h2>
         <p style="font-size:15px; line-height:1.9; margin:0 0 12px; color:rgba(243,237,228,.7); max-width:50ch">Paintings of the pets who become part of the family.</p>
         <p style="font-size:15px; line-height:1.9; margin:0 0 28px; color:rgba(243,237,228,.62); max-width:50ch">Each portrait focuses on the expressions and small details that make them instantly recognisable.</p>
-        <a href="Enquire.dc.html" style="display:inline-block; font-size:11px; letter-spacing:.22em; text-transform:uppercase; border-bottom:1px solid rgba(224,178,92,.6); padding-bottom:6px">Enquire About a Pet Portrait</a>
+        <div style="font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:rgba(224,178,92,.8); margin-top:clamp(24px,2.8vw,34px)">[ Add Pet Portrait Gallery Images Here ]</div>
       </div>
     </div>
   </section>
@@ -170,7 +151,7 @@
       <div>
         <h2 style="font-family:'Cormorant Garamond',serif; font-weight:300; font-size:clamp(34px,4.8vw,72px); line-height:1.02; letter-spacing:-.02em; margin:0 0 22px">Religious and Spiritual Art</h2>
         <p style="font-size:15px; line-height:1.9; margin:0 0 28px; color:rgba(243,237,228,.7); max-width:50ch">Paintings inspired by faith, tradition, devotion, and sacred stories.</p>
-        <a href="Enquire.dc.html" style="display:inline-block; font-size:11px; letter-spacing:.22em; text-transform:uppercase; border-bottom:1px solid rgba(224,178,92,.6); padding-bottom:6px">Enquire About Spiritual Art</a>
+        <div style="font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:rgba(224,178,92,.8); margin-top:clamp(24px,2.8vw,34px)">[ Add Spiritual Art Gallery Images Here ]</div>
       </div>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px">
         <img src="assets/paint-spiritual.jpg" alt="Finished devotional painting of a goddess" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:6px; display:block">
@@ -206,6 +187,7 @@
           </div>
         </div>
       </div>
+      <div style="font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:rgba(224,178,92,.8); margin-top:clamp(24px,2.8vw,34px)">[ Add Custom Artwork Gallery Images Here ]</div>
     </div>
   </section>
 
@@ -218,16 +200,16 @@
         <p style="font-size:15px; line-height:1.9; margin:0 0 12px; color:rgba(243,237,228,.62)">Here you can see the painting at different stages, from the first background colours to the final details.</p>
         <p style="font-size:15px; line-height:1.9; margin:0; color:rgba(243,237,228,.62)">You can also see the guests stopping by, watching the artwork change throughout the celebration.</p>
       </div>
-      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:clamp(14px,1.8vw,22px)">
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:clamp(16px,2vw,26px)">
         <img src="assets/shivani-painting-live.jpg" alt="Shivani painting the background early in the event" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:6px">
         <img src="assets/shivani-painting-mandap-live.jpg" alt="Painting at the mandap as the celebration unfolds" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:6px">
         <img src="assets/easel-in-venue.jpg" alt="The canvas on its easel at the venue" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:6px">
         <img src="assets/bts-2.jpg" alt="The finished painting with the couple" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:6px">
-        <img src="assets/live-easel-setup.jpg" alt="The easel set up before guests arrive" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:6px; display:block">
         <img src="assets/artist-painting-venue-pink.jpg" alt="Painting in progress as the venue fills up" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:6px; display:block">
         <img src="assets/live-easel-venue.jpg" alt="The canvas taking shape beside the stage" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:6px; display:block">
-        <img src="assets/bts-1.jpg" alt="A finished canvas waiting to be handed over" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:6px; display:block">
+        <img src="assets/reveal-movement-yellow.jpg" alt="The finished canvas held up at the celebration" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:6px; display:block">
       </div>
+      <div style="font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:rgba(224,178,92,.8); margin-top:clamp(24px,2.8vw,34px)">[ Add Behind the Scenes Images Here ]</div>
     </div>
   </section>
 
@@ -238,7 +220,7 @@
       <div style="width:100%; aspect-ratio:16/9; border:1px solid rgba(243,237,228,.16); background:#1B1526; border-radius:8px; display:grid; place-items:center; text-align:center; padding:24px">
         <div>
           <div style="font-size:10px; letter-spacing:.24em; text-transform:uppercase; color:#E0B25C; margin-bottom:10px">Video to supply</div>
-          <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:24px; color:rgba(243,237,228,.5)">Live painting process reel</div>
+          <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:24px; color:rgba(243,237,228,.5)">[ Add Live Painting Video Here ]</div>
         </div>
       </div>
     </div>
@@ -263,7 +245,7 @@
         <div style="font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:rgba(243,237,228,.42); margin-top:18px">BFA · MFA · Based in India</div>
       </div>
       <nav style="display:flex; flex-direction:column; gap:12px; font-size:11px; letter-spacing:.22em; text-transform:uppercase">
-        <a href="Homepage 2d Midnight Reel.dc.html" style="color:rgba(243,237,228,.7)">Home</a>
+        <a href="index.html" style="color:rgba(243,237,228,.7)">Home</a>
         <a href="Collections.dc.html" style="color:rgba(243,237,228,.7)">Collections</a>
         <a href="Live Wedding Painting.dc.html" style="color:rgba(243,237,228,.7)">Live Wedding Painting</a>
         <a href="Gallery.dc.html" style="color:rgba(243,237,228,.7)">Gallery</a>

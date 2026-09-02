@@ -1,7 +1,7 @@
 # Shivani Jaiswal — Site
 
 Single homepage direction, chosen and built out: **Midnight Reel**
-(`Homepage 2d Midnight Reel.dc.html`). Earlier comparison directions (1a, 1c,
+(`index.html`). Earlier comparison directions (1a, 1c,
 2a/b/c/e, 3a/b/c, Direction Studies) were discarded once this one was picked.
 
 ## Midnight Reel — full site
@@ -11,7 +11,7 @@ One page per client content doc, all sharing the same palette / type / header
 
 | Page | File | Source doc |
 | --- | --- | --- |
-| Home | `Homepage 2d Midnight Reel.dc.html` | 1. Home Page |
+| Home | `index.html` | 1. Home Page |
 | About + Meet Our Team | `About.dc.html` | 2. About Page, Meet Our Team |
 | Collections | `Collections.dc.html` | 3. Collections |
 | Live Wedding Painting | `Live Wedding Painting.dc.html` | 4. Live wedding painting page |
@@ -71,25 +71,63 @@ Weddings "Which Wedding Moment" grid (Your Pets) — swap for real photos once
 the client supplies them.
 
 The "A Few Pieces From My World" section on the homepage is a scroll-driven
-3D fold reveal, rebuilt in Sep 2026 to match a reference recording the client
-supplied. The cards stand upright across the middle band of the viewport and
-lie flat away from the viewer at either end — they do not fold in on entry and
-latch flat, which is what the earlier version did and what the client called
-"very subtle".
+3D fold, rebuilt in Sep 2026 against the client's reference site
+(impactfloww.framer.website). The numbers are not eyeballed — they were read
+out of that site's own compiled `__framer__transformTargets` config:
 
-Measured off the reference and implemented in `updateCaseStudyStage()`:
-`perspective: 2600px` on the wrapper (roughly 4x the card height — a much
-flatter perspective than the old 1000px, which is what lets a ~54° rotation
-read as a fold rather than a warp), `transform-origin: center`, `rotateX` 0 →
-54°, `scale` 1 → 0.81, plus a `[data-cs-dim]` ink overlay 0 → 0.52. Progress is
-each card's own position in the viewport, eased `t²`, and the bands are
-deliberately asymmetric: a card holds upright much longer coming in from the
-bottom than it does going out the top.
+| | desktop (>=810px) | mobile (<810px) |
+| --- | --- | --- |
+| before its turn | `rotateX(-50deg) scale(0.8)` | `rotateX(-30deg) scale(0.9)` |
+| at its turn | `rotateX(0) scale(1)` | `rotateX(0) scale(1)` |
+| after its turn | `rotateX(+50deg) scale(0.8)` | `rotateX(+30deg) scale(0.9)` |
 
-Cards are `aspect-ratio: 1/1` — a compromise. The reference's cards are 2:1
-landscape, but these photos are 3:4 portrait and a landscape card cropped the
-faces and canvases out of frame. Square keeps the subject and still leaves the
-fold room to read.
+`perspective(2000px)` sits in the card's own transform string (not on a
+wrapper), opacity stays 1 throughout (the reference has no dimming overlay —
+the old `[data-cs-dim]` layer is gone), and the cards sit in a plain column
+flex with a **20px** gap. Progress is linear in `d`, the card's distance from
+the viewport centre measured in card pitches (height + gap), clamped to
+[-1, 1]; `rotateX = -MAX * d`. The sign matters: a card leans *back towards*
+the viewer on the way in and away from it on the way out. The previous build
+folded the same way at both ends, which is what the client kept rejecting.
+
+Cards are `aspect-ratio: 3/2` — a compromise. The reference's cards are 2:1,
+but these photos are 3:4 portrait and 2:1 cropped the canvases out of frame
+(checked by screenshot). 3:2 keeps the artwork and still reads as a fold.
+
+Every page's logo and footer "Home" link used to point at
+`Homepage 2d Midnight Reel.dc.html`, a stale duplicate of the homepage that
+still carried the old animation. That file is deleted; everything now links to
+`index.html`.
+
+**Filename duplicates:** 12 groups of `assets/*.jpg` are byte-identical under
+different names, so a filename-only uniqueness check misses real repeats. The
+library holds 46 files but only **31 distinct photographs**. Check per page by
+content hash, not by name:
+
+    python3 -c "import re,hashlib,glob,collections,sys; H={f:hashlib.md5(open(f,'rb').read()).hexdigest() for f in glob.glob('assets/*.jpg')}; s=re.findall(r'src=\"(assets/[^\"]+\.jpg)\"',open(sys.argv[1]).read()); c=collections.Counter(H[x] for x in s); print([[x for x in s if H[x]==h] for h,n in c.items() if n>1])" <page>
+
+All pages are clean of same-photo repeats as of this pass.
+
+**Copy is verbatim, and placeholders are deliberately visible.** Every page was
+diffed against `content/*.md` in both directions and the invented editorial
+layer removed: fold-card titles and captions, section eyebrows ("Intent", "The
+artist", "On the day", "Why a painting", "The reveal", "Travel", the numbered
+"01 -" Collections labels), and the invented Gallery/Live Weddings figure
+captions. Headings reverted to the docs' own wording ("Made to Mean
+Something", "Live Painting, While the Moment Is Still Happening", "From My
+Easel", "Kind Words"). The docs' bracketed `[ Add ... ]` markers now render on
+the page on purpose, so the client can see what she still owes.
+
+The homepage testimonial carousel keeps the 7 real WedMeGood quotes (see
+below) rather than the doc's two empty placeholder slots — the client chose
+this explicitly. It now carries the doc's heading ("Kind Words"), the doc's
+CTA ("Read More Stories"), a "Read Original Review" link per quote, and a
+4.2s advance (was 6.5s, which the client found too slow).
+
+Pages other than Home and Live Weddings used to open on a text-only block.
+They all now lead with a full-bleed image hero on the Live Weddings pattern
+(`min-height:82vh`, image + a 105deg ink wash under a 180deg one, then the
+page's own copy unchanged).
 
 Vanilla JS/CSS throughout (no React/Framer Motion; the site has no build
 pipeline).
@@ -103,8 +141,8 @@ images per category, "Behind the Scenes" process shots). Each links to the
 other ("Want to Commission Your Own? See Collections" on Gallery; "Explore My
 Work" on Collections).
 
-The homepage "What Clients Say" section is a rotating testimonial carousel
-(7 quotes, 6.5s auto-advance, click-to-jump dots, pauses on hover and focus,
+The homepage "Kind Words" section is a rotating testimonial carousel
+(7 quotes, 4.2s auto-advance, click-to-jump dots, pauses on hover and focus,
 static under `prefers-reduced-motion`). The quotes are **real, publicly posted
 reviews republished from the client's WedMeGood profile**, attributed by name,
 with the source credited in the section ("5.0 from 20 reviews on WedMeGood").
