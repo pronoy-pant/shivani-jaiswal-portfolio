@@ -25,6 +25,26 @@
   @keyframes waSpinRev { 0% { transform:rotate(0deg) } 100% { transform:rotate(-360deg) } }
   @keyframes waSpin { 0% { transform:rotate(0deg) } 100% { transform:rotate(360deg) } }
   @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration:.01ms !important } }
+  #nav-burger, #nav-scrim { display:none; }
+  @media (max-width: 780px) {
+    #nav-burger { display:block; width:26px; height:18px; position:relative; cursor:pointer; z-index:61; flex-shrink:0; }
+    #nav-burger span { position:absolute; left:0; right:0; height:2px; background:#F3EDE4; transition:transform .3s,opacity .3s; }
+    #nav-burger span:nth-child(1) { top:0; }
+    #nav-burger span:nth-child(2) { top:8px; }
+    #nav-burger span:nth-child(3) { top:16px; }
+    header nav { position:fixed; top:0; right:0; width:min(78vw,320px); height:100vh; flex-direction:column !important; flex-wrap:nowrap !important; justify-content:center !important; align-items:flex-start !important; gap:26px !important; padding:100px 44px; margin:0; background:#171123; box-shadow:-30px 0 60px -20px rgba(0,0,0,.5); transform:translateX(100%); transition:transform .45s cubic-bezier(.16,1,.3,1); z-index:60; font-size:14px !important; }
+    #nav-toggle:checked ~ nav { transform:translateX(0); }
+    #nav-scrim { display:block; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(10,8,14,.55); opacity:0; pointer-events:none; transition:opacity .35s; z-index:59; }
+    #nav-toggle:checked ~ #nav-scrim { opacity:1; pointer-events:auto; }
+    #nav-toggle:checked ~ #nav-burger span:nth-child(1) { transform:translateY(8px) rotate(45deg); }
+    #nav-toggle:checked ~ #nav-burger span:nth-child(2) { opacity:0; }
+    #nav-toggle:checked ~ #nav-burger span:nth-child(3) { transform:translateY(-8px) rotate(-45deg); }
+    body:has(#nav-toggle:checked) a[aria-label="Chat on WhatsApp"] { display:none !important; }
+    #hero { height:auto !important; min-height:100svh !important; grid-template-columns:1fr !important; }
+    #hero > div { grid-column:1 !important; }
+    [data-2col] { grid-template-columns:1fr !important; }
+    [data-2col] img { margin-top:0 !important; }
+  }
 </style>
 </helmet>
 
@@ -35,6 +55,8 @@
       <img src="assets/logo.png" alt="Shivani Jaiswal" style="width:50px; height:50px; border-radius:50%; object-fit:cover">
       
     </a>
+    <input type="checkbox" id="nav-toggle" style="position:absolute; opacity:0; pointer-events:none">
+    <label for="nav-toggle" id="nav-burger" aria-label="Toggle menu"><span></span><span></span><span></span></label>
     <nav style="display:flex; flex-wrap:wrap; gap:10px clamp(12px,1.8vw,24px); font-size:11px; letter-spacing:.2em; text-transform:uppercase">
       <a href="Collections.dc.html" style="color:rgba(243,237,228,.82)">Collections</a>
       <a href="Live Wedding Painting.dc.html" style="color:rgba(243,237,228,.82)">Live Weddings</a>
@@ -43,9 +65,10 @@
       <a href="Blog.dc.html" style="color:rgba(243,237,228,.82)">Journal</a>
       <a href="Enquire.dc.html" style="color:#E0B25C">Enquire</a>
     </nav>
+    <label for="nav-toggle" id="nav-scrim" aria-hidden="true"></label>
   </header>
 
-  <section style="position:relative; height:100vh; min-height:640px; display:grid; grid-template-columns:1.05fr .95fr; align-items:end; overflow:hidden">
+  <section id="hero" style="position:relative; height:100vh; min-height:640px; display:grid; grid-template-columns:1.05fr .95fr; align-items:end; overflow:hidden">
     <div data-hero-bg="" style="position:absolute; inset:-6% 0 0 0; animation:wipeIn 1.4s cubic-bezier(.16,1,.3,1) both">
       <img src="assets/hero-painting-reveal.jpg" alt="Shivani with a finished wedding painting" style="width:100%; height:100%; object-fit:cover; object-position:50% 40%">
     </div>
@@ -185,7 +208,7 @@
         <p style="font-size:15px; line-height:1.9; margin:0 0 30px; max-width:52ch; color:rgba(243,237,228,.6)">By the end of the event, the painting is complete and ready for its reveal.</p>
         <a href="Live Wedding Painting.dc.html" style="font-size:11px; letter-spacing:.22em; text-transform:uppercase; border-bottom:1px solid rgba(224,178,92,.6); padding-bottom:5px">See How Live Wedding Painting Works</a>
       </div>
-      <div data-reveal="" style="display:grid; grid-template-columns:1fr 1fr; gap:16px">
+      <div data-reveal="" data-2col style="display:grid; grid-template-columns:1fr 1fr; gap:16px">
         <img src="assets/live-big.jpg" alt="Painting live at the mandap" style="width:100%; grid-row:span 2; height:100%; object-fit:cover">
         <img src="assets/live-small1.jpg" alt="Easel at the venue" style="width:100%; aspect-ratio:1/1; object-fit:cover">
         <img src="assets/bts-2.jpg" alt="Finished painting with the couple" style="width:100%; aspect-ratio:1/1; object-fit:cover">
